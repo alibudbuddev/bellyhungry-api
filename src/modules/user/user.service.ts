@@ -15,4 +15,10 @@ export class UserService {
   async getOne(id): Promise<User> {
     return this.userModel.findById(id).exec();
   }
+
+  async create(object: any): Promise<any> {
+    const query = new this.userModel(object);
+    return query.save();
+  }
+
 }

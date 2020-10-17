@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { Request } from 'express';
-import { User } from './user.schema';
+import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -13,14 +13,18 @@ export class UserController {
     return this.userService.getMany();
   }
 
-  @Get(':id')
-  async getOne(@Req() req: Request): Promise<User> {
-  	const id = req.params.id;
-    return this.userService.getOne(id);
+  @Post()
+  async create(@Body() body: any): Promise<User> {
+    return this.userService.create(body);
   }
 
-  @Post('')
-  async create(@Req() req: Request): Promise<User> {
+  @Get('schema')
+  async schema(@Req() req: Request): Promise<any> {
+    return UserSchema.paths;
+  }
+
+  @Get(':id')
+  async getOne(@Req() req: Request): Promise<User> {
   	const id = req.params.id;
     return this.userService.getOne(id);
   }

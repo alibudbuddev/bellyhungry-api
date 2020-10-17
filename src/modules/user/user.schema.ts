@@ -5,7 +5,7 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({required: true})
+  @Prop({required: true, unique: true})
   email: string;
 
   @Prop(raw({
@@ -14,27 +14,36 @@ export class User {
     last: {type: String},
   }))
   name: Record<any, any>;
+
+  @Prop()
+  address: string;
+
+  @Prop({ unique: true, sparse: true })
+  phoneNo: string;
+
+  @Prop()
+  contactEmail: string;
+
+  @Prop(raw({
+    full: {type: String},
+    thumbnail: {type: String}
+  }))
+  profileImg: Record<any, any>;
+
+  @Prop()
+  receiveNewsletter: boolean;
+
+  @Prop()
+  coordinate: number[];
+
+  @Prop({ required: true, default: 'user' })
+  role: string;
+
+  @Prop({ default: Date.now })
+  updatedAt: Date;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-
-// export const UserSchema = new Schema({
-// 	email: String,
-//   name: {
-//     first: String,
-//     middle: String,
-//     last: String,
-//   },
-//   address: String,
-//   phoneNo: String,
-//   contactEmail: String,
-//   profileImg: {
-//     full: String,
-//     thumbnai: String
-//   },
-//   receiveNewsletter: Boolean,
-//   coordinate: String,
-//   role: String,
-//   updatedAt: {type: Date, default: Date.now},
-//   createdAt: {type: Date, default: Date.now}
-// });
