@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Res } from '@nestjs/common';
 import { Request } from 'express';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
@@ -14,8 +14,14 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() body: any): Promise<User> {
-    return this.userService.create(body);
+  async create(@Body() body: any, @Res() res: any): Promise<User> {
+    return this.userService.create(body)
+    .then(user => {
+      return res.json(user);
+    })
+    .catch(e => {
+      throw new HttpException(e.message, HttpStatus.FORBIDDEN);
+    });
   }
 
   @Get('schema')
