@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Res, Params } from '@nestjs/common';
 import { Request } from 'express';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
@@ -30,8 +30,8 @@ export class UserController {
   }
 
   @Get(':id')
-  async getOne(@Req() req: Request): Promise<User> {
-  	const id = req.params.id;
+  async getOne(@Params() params: Params): Promise<User> {
+  	const id = params.id;
     return this.userService.getOne(id);
   }
 }
