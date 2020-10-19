@@ -31,8 +31,7 @@ export class UserController {
   }
 
   @Get(':id')
-  async getOne(@Param() params: any): Promise<User> {
-  	const id = params.id;
+  async getOne(@Param('id') id: string): Promise<User> {
     return this.userService.getOne(id);
   }
 }
