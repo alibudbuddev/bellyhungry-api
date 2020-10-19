@@ -14,13 +14,13 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() body: any, @Res() res: any): Promise<User> {
+  async create(@Body() body: any): Promise<User> {
     return this.userService.create(body)
     .then(user => {
-      return res.json(user);
+      return user;
     })
     .catch(e => {
-      throw new HttpException(e.message, HttpStatus.FORBIDDEN);
+      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
     });
   }
 
