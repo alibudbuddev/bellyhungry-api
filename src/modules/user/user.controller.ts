@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Res, Params } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Res, Param } from '@nestjs/common';
 import { Request } from 'express';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
@@ -15,13 +15,14 @@ export class UserController {
 
   @Post()
   async create(@Body() body: any): Promise<User> {
-    return this.userService.create(body)
-    .then(user => {
-      return user;
-    })
-    .catch(e => {
-      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    });
+    const user = await this.userService.create(body);
+    return user;
+    // .then(user => {
+    //   return user;
+    // })
+    // .catch(e => {
+    //   throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    // });
   }
 
   @Get('schema')
@@ -30,7 +31,7 @@ export class UserController {
   }
 
   @Get(':id')
-  async getOne(@Params() params: Params): Promise<User> {
+  async getOne(@Param() params: any): Promise<User> {
   	const id = params.id;
     return this.userService.getOne(id);
   }
