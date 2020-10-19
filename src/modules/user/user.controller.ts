@@ -2,6 +2,7 @@ import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Param } fr
 import { Request } from 'express';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
+import CreateUserDto from './dto/create-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -14,7 +15,7 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() body: any): Promise<User> {
+  async create(@Body() body: CreateUserDto): Promise<User> {
     return this.userService.create(body)
     .then(user => {
       return user;
