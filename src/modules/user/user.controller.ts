@@ -21,7 +21,7 @@ export class UserController {
       return user;
     })
     .catch(e => {
-      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
     });
   }
 
