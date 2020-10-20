@@ -6,9 +6,31 @@ import { User, UserDocument } from './user.schema';
 @Injectable()
 export class UserService {
 
-	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  private readonly users: any[];
 
-	async getMany(filter: any = {}): Promise<User[]> {
+	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
+    this.users = [
+      {
+        email: 'john',
+        password: 'changeme',
+      },
+      {
+        email: 'chris',
+        password: 'secret',
+      },
+      {
+        email: 'maria',
+        password: 'guess',
+      },
+    ];
+
+  }
+
+  async findOne(email: string): Promise<any | undefined> {
+    return this.users.find(user => user.email === email);
+  }
+
+	async get(filter: any = {}): Promise<User[]> {
     return this.userModel.find(filter).exec();
   }
 

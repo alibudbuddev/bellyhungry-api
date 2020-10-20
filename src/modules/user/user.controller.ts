@@ -11,7 +11,7 @@ export class UserController {
 
 	@Get()
   async getMany(@Req() req: Request): Promise<User[]> {
-    return this.userService.getMany();
+    return this.userService.get();
   }
 
   @Post()
