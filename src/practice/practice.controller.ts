@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Param, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
-import { RolesGuard } from '@guards/roles.guard';
+import { AdminGuard } from '@guards/admin.guard';
+import { SubAdminGuard } from '@guards/sub-admin.guard';
 import { Practice, PracticeSchema } from './practice.schema';
 import { PracticeService } from './practice.service';
 
 @Controller('practice')
-@UseGuards(RolesGuard)
 export class PracticeController {
 
 	constructor(private practiceService: PracticeService) {}
@@ -29,6 +29,18 @@ export class PracticeController {
   @Get('schema')
   async schema(@Req() req: Request): Promise<any> {
     return PracticeSchema.paths;
+  }
+
+  @Get('admin-only')
+  @UseGuards(AdminGuard)
+  adminOnly(): any {
+    return 'only admin can see this.';
+  }
+
+  @Get('sub-admin-only')
+  @UseGuards(SubAdminGuard)
+  subAdminOnly(): any {
+    return 'only sub-admin can see this.';
   }
 
   @Get(':id')
