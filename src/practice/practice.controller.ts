@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Param, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
+import { RolesGuard } from '@guards/roles.guard';
 import { Practice, PracticeSchema } from './practice.schema';
 import { PracticeService } from './practice.service';
 
 @Controller('practice')
+@UseGuards(RolesGuard)
 export class PracticeController {
 
 	constructor(private practiceService: PracticeService) {}

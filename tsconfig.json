@@ -12,7 +12,9 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@modules/*": ["src/modules/*"]
+      "@modules/*": ["src/modules/*"],
+      "@auth/*": ["src/auth/*"],
+      "@guards/*": ["src/guards/*"]
     }
   }
 }
