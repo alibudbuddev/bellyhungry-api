@@ -5,7 +5,7 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({required: true, unique: true})
+  @Prop({unique: true, required: true})
   email: string;
 
   @Prop({required: true, minlength: 8})
@@ -21,10 +21,10 @@ export class User {
   @Prop()
   address: string;
 
-  @Prop({ unique: true, sparse: true })
+  @Prop({unique: true, sparse: true})
   phoneNo: string;
 
-  @Prop()
+  @Prop({unique: true, sparse: true})
   contactEmail: string;
 
   @Prop(raw({
