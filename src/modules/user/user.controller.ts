@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
 import CreateUserDto from './dto/create-user.dto';
+import UserEmailExistPipe from '@pipes/user-email-exist.pipe';
 
 @Controller('users')
 export class UserController {
@@ -15,7 +16,7 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() body: CreateUserDto): Promise<User> {
+  async create(@Body(UserEmailExistPipe) body: CreateUserDto): Promise<User> {
     return this.userService.create(body)
     .then(user => {
       return user;

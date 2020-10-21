@@ -14,7 +14,8 @@
     "paths": {
       "@modules/*": ["src/modules/*"],
       "@auth/*": ["src/auth/*"],
-      "@guards/*": ["src/guards/*"]
+      "@guards/*": ["src/guards/*"],
+      "@pipes/*": ["src/pipes/*"]
     }
   }
 }
