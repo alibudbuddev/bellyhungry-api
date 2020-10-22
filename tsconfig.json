@@ -15,7 +15,8 @@
       "@modules/*": ["src/modules/*"],
       "@auth/*": ["src/auth/*"],
       "@guards/*": ["src/guards/*"],
-      "@pipes/*": ["src/pipes/*"]
+      "@pipes/*": ["src/pipes/*"],
+      "@core/*": ["src/core/*"]
     }
   }
 }

@@ -7,8 +7,6 @@ import * as argon2 from 'argon2';
 @Injectable()
 export class UserService {
 
-  private readonly users: any[];
-
 	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findOne(filter): Promise<any | undefined> {
