@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, HttpException, HttpStatus, Param, UsePipes } from '@nestjs/common';
 import { Request } from 'express';
 import { User, UserSchema } from './user.schema';
 import { UserService } from './user.service';
 import CreateUserDto from './dto/create-user.dto';
-import UserEmailExistPipe from '@pipes/user-email-exist.pipe';
+import UserCreateValidatorPipe from '@pipes/user-create-validator.pipe';
 
 @Controller('users')
 export class UserController {
@@ -16,7 +16,8 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body(UserEmailExistPipe) body: CreateUserDto): Promise<User> {
+  @UsePipes(UserCreateValidatorPipe)
+  async create(@Body() body: CreateUserDto): Promise<User> {
     return this.userService.create(body)
     .then(user => {
       return user;
@@ -33,6 +34,6 @@ export class UserController {
 
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<User> {
-    return this.userService.getOne(id);
+    return this.userService.findById(id);
   }
 }
