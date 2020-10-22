@@ -18,13 +18,13 @@ export class UserController {
   @Post()
   @UsePipes(UserCreateValidatorPipe)
   async create(@Body() body: CreateUserDto): Promise<User> {
-    return this.userService.create(body);
-    // .then(user => {
-    //   return user;
-    // })
-    // .catch(e => {
-    //   throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
-    // });
+    return this.userService.create(body)
+    .then(user => {
+      return user;
+    })
+    .catch(e => {
+      throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
+    });
   }
 
   @Get('schema')

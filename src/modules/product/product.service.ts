@@ -21,6 +21,7 @@ export class ProductService {
   }
 
 	async create(object: any): Promise<any> {
+    object['productId'] = Date.now();
     const query = new this.productModel(object);
     return query.save();
   }

@@ -18,6 +18,6 @@ export class AppController {
   @UseGuards(AuthenticatedGuard)
   @Get('auth/me')
   getProfile(@Request() req) {
-    return {user: req.user};
+    return {user: req.user, merchantId: Date.now()};
   }
 }

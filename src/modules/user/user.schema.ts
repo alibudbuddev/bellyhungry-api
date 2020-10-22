@@ -11,6 +11,9 @@ export class User {
   @Prop({required: true, minlength: 8})
   password: string;
 
+  @Prop({unique: true, required: true})
+  userId: number;
+
   @Prop(raw({
     first: {type: String, required: true},
     middle: {type: String},

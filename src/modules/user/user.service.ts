@@ -22,6 +22,7 @@ export class UserService {
   }
 
   async create(object: any): Promise<any> {
+    object['userId'] = Date.now();
     object['password'] = await argon2.hash(object.password);
     const query = new this.userModel(object);
     return query.save();

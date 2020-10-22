@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Req, Request, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Request, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product, ProductSchema } from './product.schema';
+import { AuthenticatedGuard } from '@guards/authenticated.guard';
 
 @Controller('products')
 export class ProductController {
@@ -13,8 +14,9 @@ export class ProductController {
   }
   
 	@Post()
-  async create(@Body() body: any): Promise<any> {
-  	const merchant = {merchant: '5f912bb4ea3e9009395672da'};
+  @UseGuards(AuthenticatedGuard)
+  async create(@Body() body: any, @Req() req: any): Promise<any> {
+  	const merchant = {merchant: req.user._id};
   	const product = Object.assign(body, merchant);
     return this.productService.create(product)
     .then(product => {

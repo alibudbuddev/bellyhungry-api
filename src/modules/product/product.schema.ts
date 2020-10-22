@@ -5,6 +5,9 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
+  @Prop({unique: true, required: true})
+  productId: number;
+
   @Prop({required: true})
   name: string;
 
@@ -24,7 +27,7 @@ export class Product {
   catgory: number;
 
   @Prop({default: false})
-  isAvailable: number;
+  isAvailable: boolean;
 
   @Prop(raw({
   	type: Types.ObjectId,
