@@ -1,5 +1,6 @@
 export default class OrderItemsDto {
 	product: string;
+	merchant: string;
 	price: number;
 	qty: number;
 	discount?: number;
