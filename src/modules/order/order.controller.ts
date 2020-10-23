@@ -10,11 +10,6 @@ import OrderItemsDto from './dto/order-items.dto';
 export class OrderController {
 
 	constructor(private orderService: OrderService) {}
-
-	// @Get()
- //  find(@Req() req: any, @Query() query: any): any {
- //    return this.orderService.find({merchant: req.user._id});
- //  }
   
 	@Post()
   async create(@Req() req: any, @Body('items') items: OrderItemsDto[]): Promise<any> {
@@ -33,15 +28,4 @@ export class OrderController {
   async schema(@Req() req: any): Promise<any> {
     return OrderSchema.paths;
   }
-
- //  @Put(':id')
- //  async findOneAndUpdate(@Req() req: any, @Param('id') id: string, @Body() body: any): Promise<Product> {
- //    const merchant = {merchant: req.user._id, _id: id};
- //    return this.orderService.findOneAndUpdate(merchant, body);
- //  }
-
- //  @Get(':id')
- //  async getOne(@Param('id') id: string): Promise<Product> {
- //    return this.orderService.findById(id);
- //  }
 }
