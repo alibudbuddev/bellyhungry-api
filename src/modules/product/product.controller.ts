@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Req, HttpException, HttpStatus, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, HttpException, HttpStatus, UseGuards, Query, Param } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product, ProductSchema } from './product.schema';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
@@ -30,5 +30,10 @@ export class ProductController {
 	@Get('schema')
   async schema(@Req() req: any): Promise<any> {
     return ProductSchema.paths;
+  }
+
+  @Get(':id')
+  async getOne(@Param('id') id: string): Promise<Product> {
+    return this.productService.findById(id);
   }
 }

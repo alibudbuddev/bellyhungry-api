@@ -5,17 +5,22 @@ import { Product, ProductDocument } from './product.schema';
 
 @Injectable()
 export class ProductService {
+  private publicFields: string = 'name price productId qty';
 
 	constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
 
 	async find(filter: any = {}): Promise<Product[]> {
-    return this.productModel.find(filter, 'name price productId qty')
+    return this.productModel.find(filter, this.publicFields)
     .populate('merchant', 'name')
     .exec();
   }
 
+  async findById(id): Promise<Product> {
+    return this.productModel.findById(id, this.publicFields).exec();
+  }
+
 	async findOne(filter): Promise<any | undefined> {
-    return this.productModel.findOne(filter)
+    return this.productModel.findOne(filter, this.publicFields)
     .populate('merchant')
     .exec();
   }
