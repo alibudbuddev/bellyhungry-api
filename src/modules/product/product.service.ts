@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Product, ProductDocument } from './product.schema';
+import { Product } from './product.schema';
 import UpdateProductDto from './dto/update-product.dto';
 
 @Injectable()
 export class ProductService {
   private publicFields: string = 'name price productId qty';
 
-	constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
+	constructor(@InjectModel(Product.name) private productModel: Model<any>) {}
 
 	async find(filter: any = {}): Promise<Product[]> {
     return this.productModel.find(filter, this.publicFields)

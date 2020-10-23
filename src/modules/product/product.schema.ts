@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type ProductDocument = Product & Document;
-
 @Schema()
 export class Product {
   @Prop({unique: true, required: true})
