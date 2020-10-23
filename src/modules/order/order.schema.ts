@@ -10,22 +10,22 @@ export class Order {
   }))
   customer: Record<any, any>;
 
-  @Prop(raw({
+  @Prop(raw([{
     product: {type: Types.ObjectId, ref: 'Product', required: true},
     price: {type: Number, required: true},
     qty: {type: Number, required: true},
     discount: {type: Number, default: 0},
     shippingFee: {type: Number, default: 0},
-    total: {type: Number, default: 0},
+    totalPrice: {type: Number, default: 0},
     status: {type: String},
-  }))
+  }]))
   items: Record<any, any>[];
 
   @Prop({default: 0})
   discount: number;
 
   @Prop({required: true, default: 0})
-  total: number;
+  totalPrice: number;
 
   @Prop({default: 0})
   shippingFee: number;

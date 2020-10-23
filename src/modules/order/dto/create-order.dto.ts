@@ -2,17 +2,29 @@ import OrderItemsDto from './order-items.dto';
 import { sumBy } from 'lodash';
 
 export default class CreateOrderDto {
-	customer: number;
-  orderItems: any[] = [];
+	customer: string;
+  items: OrderItemsDto[] = [];
   discount?: number;
-  total: number = 0;
+  totalPrice: number = 0;
   shippinFee?: number;
 
-  constructor(order: {customer: string, orderItems: OrderItemsDto[]}) {
-  	this.generateTotal(order.orderItems);
+  constructor(order: {customer: string, items: OrderItemsDto[]}) {
+    // Calculate total price per item.
+    const items = order.items.map(x => {
+      x.totalPrice = x.qty * x.price;
+      return x;
+    })
+    this.totalPrice = sumBy(items, 'totalPrice');
+    this.customer = order.customer;
+    this.items = items;
   }
 
-  private generateTotal(orderItems: OrderItemsDto[]): any {
-  	this.total = sumBy(orderItems, 'price');
+  getFields(): any {
+    const order = {
+      customer: this.customer,
+      items: this.items,
+      totalPrice: this.totalPrice
+    }
+    return order;
   }
 }
