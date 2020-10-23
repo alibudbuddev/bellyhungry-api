@@ -1,4 +1,5 @@
 import OrderItemsDto from './order-items.dto';
+import { sumBy } from 'lodash';
 
 export default class CreateOrderDto {
 	customer: number;
@@ -8,10 +9,10 @@ export default class CreateOrderDto {
   shippinFee?: number;
 
   constructor(order: {customer: string, orderItems: OrderItemsDto[]}) {
-  	this.generateTotal();
+  	this.generateTotal(order.orderItems);
   }
 
-  private generateTotal(): any {
-  	this.total = 0;
+  private generateTotal(orderItems: OrderItemsDto[]): any {
+  	this.total = sumBy(orderItems, 'price');
   }
 }
