@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Req, HttpException, HttpStatus, UseGuards, Query, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Req, HttpException, HttpStatus, UseGuards, Query, Param } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product, ProductSchema } from './product.schema';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
@@ -30,6 +30,12 @@ export class ProductController {
 	@Get('schema')
   async schema(@Req() req: any): Promise<any> {
     return ProductSchema.paths;
+  }
+
+  @Put(':id')
+  async findOneAndUpdate(@Req() req: any, @Param('id') id: string, @Body() body: any): Promise<Product> {
+    const merchant = {merchant: req.user._id, _id: id};
+    return this.productService.findOneAndUpdate(merchant, body);
   }
 
   @Get(':id')

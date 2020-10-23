@@ -2,6 +2,7 @@ import { Injectable, Get, Req, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from './product.schema';
+import UpdateProductDto from './dto/update-product.dto'; 
 
 @Injectable()
 export class ProductService {
@@ -23,6 +24,10 @@ export class ProductService {
     return this.productModel.findOne(filter, this.publicFields)
     .populate('merchant')
     .exec();
+  }
+
+  async findOneAndUpdate(filter: {merchant: string, _id: string}, body: UpdateProductDto): Promise<any | undefined> {
+    return this.productModel.findOneAndUpdate(filter, body);
   }
 
 	async create(object: any): Promise<any> {

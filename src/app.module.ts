@@ -10,7 +10,7 @@ import { AppController } from './app.controller';
 
 @Module({
   imports: [
-  	MongooseModule.forRoot(process.env.DB_CONNECTION),
+  	MongooseModule.forRoot(process.env.DB_CONNECTION, { useFindAndModify: false }),
   	UserModule,
   	ProductModule,
   	OrderModule,
