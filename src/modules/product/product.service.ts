@@ -1,8 +1,8 @@
-import { Injectable, Get, Req, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from './product.schema';
-import UpdateProductDto from './dto/update-product.dto'; 
+import UpdateProductDto from './dto/update-product.dto';
 
 @Injectable()
 export class ProductService {
