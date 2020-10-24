@@ -3,7 +3,7 @@ import { OrderService } from './order.service';
 import { Order, OrderSchema } from './order.schema';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
 import CreateOrderDto from './dto/create-order.dto';
-import OrderItemsDto from './dto/order-items.dto';
+import OrderItemDto from './dto/order-item.dto';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('orders')
@@ -12,7 +12,7 @@ export class OrderController {
 	constructor(private orderService: OrderService) {}
   
 	@Post()
-  async create(@Req() req: any, @Body('items') items: OrderItemsDto[]): Promise<any> {
+  async create(@Req() req: any, @Body('items') items: OrderItemDto[]): Promise<any> {
   	const orderMetaData = {customer: req.user._id, items: items};
   	const order = new CreateOrderDto(orderMetaData);
     return this.orderService.create(order.getFields())

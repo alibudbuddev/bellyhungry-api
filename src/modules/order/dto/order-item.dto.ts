@@ -1,4 +1,4 @@
-export default class OrderItemsDto {
+export default class OrderItemDto {
 	product: string;
 	merchant: string;
 	price: number;
