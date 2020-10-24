@@ -5,8 +5,7 @@ import { Document, Types } from 'mongoose';
 export class Order {
   @Prop(raw({
     type: Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'
   }))
   customer: Record<any, any>;
 
