@@ -45,6 +45,8 @@ export class User {
   @Prop({ required: true, default: 'user' })
   role: string;
 
+  // TODO: Add customer details
+
   @Prop({ default: Date.now })
   updatedAt: Date;
 
