@@ -10,6 +10,16 @@ export class Order {
   }))
   customer: Record<any, any>;
 
+  @Prop(raw({
+    name: {type: String, required: true},
+    shippingAddress: {type: String, required: true},
+    contactNo: {type: String, required: true},
+    facebookName: {type: String},
+    contactEmail: {type: String},
+    other: {type: String}
+  }))
+  customerDetails: Record<any, any>[];
+
   @Prop(raw([{
     product: {type: Types.ObjectId, ref: 'Product', required: true},
     merchant: {type: Types.ObjectId, ref: 'User', required: true},
