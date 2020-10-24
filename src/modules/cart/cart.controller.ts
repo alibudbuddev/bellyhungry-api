@@ -10,11 +10,17 @@ export class CartController {
 
 	constructor(private cartService: CartService) {}
 
+  @Get()
+  @UseGuards(AuthenticatedGuard)
+  find(@Req() req: any): any {
+    return this.cartService.findOne({customer: req.user._id});
+  }
+
 	@Post()
   @UseGuards(AuthenticatedGuard)
   async create(@Req() req: any, @Body('item') item: OrderItemDto): Promise<any> {
     const customer = req.user._id;
-    const cartRecord = await this.getCart(customer);
+    const isCartExist = await this.isCartExist(customer);
     const items = [item];
     const cartMetaData = {customer, items};
 
@@ -23,8 +29,8 @@ export class CartController {
     // - If YES > Get that cart and update items.
     // - if No > Create new card record.
 
-    if (cartRecord) {
-      // code...
+    if (isCartExist) {
+      return this.cartService.addItem({customer}, item);
     } else {
       let cartObject = new CreateOrderDto(cartMetaData);
       let cart = await this.cartService.create(cartObject.getFields());
@@ -65,8 +71,8 @@ export class CartController {
     return CartSchema.paths;
   }
 
-  async getCart(userId): Promise<Cart | undefined> {
-    let cart = await this.cartService.findOne({customer: userId});
+  async isCartExist(userId): Promise<boolean | undefined> {
+    let cart = await this.cartService.isCartExist({customer: userId});
     return cart;
   }
 }
