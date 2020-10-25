@@ -31,19 +31,21 @@ export class CartController {
     }
   }
 
-  @Delete(':id')
+  @Delete()
   @UseGuards(AuthenticatedGuard)
-  async delete(@Req() req: any, @Param('id') id: string): Promise<any> {
-    return this.cartService.deleteOne({'_id': id})
-    .then(() => {
-      return;
-    })
-    .catch(e => {
-      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    });
+  async delete(@Req() req: any, @Body('product') product: string): Promise<any> {
+    const customer = req.user._id;
+    const filter = {customer: customer, product: product};
+    const isCartExist = await this.isCartExist(filter);
+
+    if (!isCartExist) {
+      throw new HttpException('Invalid Product ID', HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    return this.cartService.deleteOne(filter);
   }
 
-  @Put()
+  @Put(':id')
   @UseGuards(AuthenticatedGuard)
   async update(@Req() req: any, @Body('item') item: {_id: string, qty: number}): Promise<any> {
     // TODO: 
