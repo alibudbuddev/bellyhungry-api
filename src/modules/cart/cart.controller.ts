@@ -43,7 +43,7 @@ export class CartController {
       throw new HttpException('Invalid Product ID', HttpStatus.NOT_ACCEPTABLE);
     }
 
-    return this.cartService.deleteOne(filter);
+    return this.cartService.delete(filter);
   }
 
   // TODO: Add validation pipe for item object.

@@ -2,21 +2,28 @@ import { Controller, Get, Post, Put, Body, Req, HttpException, HttpStatus, UseGu
 import { OrderService } from './order.service';
 import { Order, OrderSchema } from './order.schema';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
+import { CartService } from '@modules/cart/cart.service';
 import CreateOrderDto from './dto/create-order.dto';
 import OrderItemDto from './dto/order-item.dto';
 
-@UseGuards(AuthenticatedGuard)
 @Controller('orders')
 export class OrderController {
 
-	constructor(private orderService: OrderService) {}
+	constructor(private orderService: OrderService, private cartService: CartService) {}
   
+  @UseGuards(AuthenticatedGuard)
 	@Post()
-  async create(@Req() req: any, @Body('items') items: OrderItemDto[]): Promise<any> {
-  	const orderMetaData = {customer: req.user._id, items: items};
+  async create(@Req() req: any, @Body() body: any): Promise<any> {
+  	const orderMetaData = {
+      customer: req.user._id || null,
+      customerDetails: body.customerDetails,
+      items: body.items
+    };
   	const order = new CreateOrderDto(orderMetaData);
+
     return this.orderService.create(order.getFields())
-    .then(order => {
+    .then(async (order) => {
+      await this.cartService.delete({customer: orderMetaData.customer}, true);
       return order;
     })
     .catch(e => {

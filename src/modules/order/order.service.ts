@@ -12,8 +12,6 @@ export class OrderService {
 
 	async find(filter: any = {}): Promise<Order[]> {
     return this.orderModel.find(filter, this.publicFields).exec();
-    // .populate('merchant', 'name')
-    // .exec();
   }
 
   async findById(id): Promise<Order> {

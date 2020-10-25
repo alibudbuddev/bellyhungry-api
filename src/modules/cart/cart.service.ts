@@ -18,7 +18,10 @@ export class CartService {
     return this.cartModel.find(filter);
   }
 
-  async deleteOne(filter): Promise<any | undefined> {
+  async delete(filter: any, multi: boolean = false): Promise<any | undefined> {
+    if (multi) {
+      return this.cartModel.deleteMany(filter);
+    }
     return this.cartModel.deleteOne(filter);
   }
 
