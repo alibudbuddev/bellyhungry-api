@@ -1,10 +1,9 @@
-import { Controller, Get, Delete, Post, Put, Req, Body, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Delete, Post, Put, Req, Body, Param, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { merge } from 'lodash';
 import { Cart, CartSchema } from './cart.schema';
 import { CartService } from './cart.service';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
 import CartItemDto from './dto/cart-item.dto';
-// import CreateCartDto from '@modules/order/dto/create-order.dto';
 
 @Controller('cart')
 export class CartController {
@@ -32,12 +31,16 @@ export class CartController {
     }
   }
 
-  @Delete()
+  @Delete(':id')
   @UseGuards(AuthenticatedGuard)
-  async delete(@Req() req: any, @Body('itemId') itemId: string): Promise<any> {
-    // TODO: 
-    // -  Get cart record.
-    // - Remove item from cart using itemID
+  async delete(@Req() req: any, @Param('id') id: string): Promise<any> {
+    return this.cartService.deleteOne({'_id': id})
+    .then(() => {
+      return;
+    })
+    .catch(e => {
+      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    });
   }
 
   @Put()

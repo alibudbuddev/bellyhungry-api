@@ -18,6 +18,10 @@ export class CartService {
     return this.cartModel.find(filter);
   }
 
+  async deleteOne(filter): Promise<any | undefined> {
+    return this.cartModel.deleteOne(filter);
+  }
+
   async addItem(object: CartItemDto): Promise<any> {
     const query = new this.cartModel(object);
     return query.save();
