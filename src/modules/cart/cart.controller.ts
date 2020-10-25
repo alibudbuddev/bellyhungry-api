@@ -16,6 +16,7 @@ export class CartController {
     return this.cartService.find({customer: req.user._id});
   }
 
+  // TODO: Add validation pupe for item object.
 	@Post()
   @UseGuards(AuthenticatedGuard)
   async create(@Req() req: any, @Body('item') item: CartItemDto): Promise<any> {
