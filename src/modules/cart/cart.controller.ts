@@ -46,13 +46,20 @@ export class CartController {
     return this.cartService.deleteOne(filter);
   }
 
-  @Put(':id')
+  // TODO: Add validation pipe for item object.
+  @Put()
   @UseGuards(AuthenticatedGuard)
-  async update(@Req() req: any, @Body('item') item: {_id: string, qty: number}): Promise<any> {
-    // TODO: 
-    // - Check if id and qty exist. Return error if not
-    // - Get cart record.
-    // - Update item
+  async update(@Req() req: any, @Body() item: CartItemDto): Promise<any> {
+    const customer = req.user._id;
+    const filter = {customer: customer, product: item.product};
+    const isCartExist = await this.isCartExist(filter);
+
+    if (!isCartExist) {
+      throw new HttpException('Invalid Product ID', HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    const cartItem = merge(item, new CartItemDto(item, customer));
+    return this.cartService.addQty(filter, cartItem);
   }
 
 	@Get('schema')
