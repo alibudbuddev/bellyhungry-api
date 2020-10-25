@@ -16,7 +16,7 @@ export class Cart {
   product: Record<any, any>;
 
   @Prop({default: 0})
-  itemPrice: number;
+  price: number;
 
   @Prop({required: true, default: 0})
   totalPrice: number;

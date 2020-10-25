@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cart } from './cart.schema';
 import CreateOrderDto from '@modules/order/dto/create-order.dto';
-import OrderItemDto from '@modules/order/dto/order-item.dto';
+import CartItemDto from './dto/cart-item.dto';
 
 @Injectable()
 export class CartService {
@@ -18,17 +18,15 @@ export class CartService {
     return this.cartModel.findOne(filter);
   }
 
-  async create(object: CreateOrderDto): Promise<any> {
+  async addItem(object: CartItemDto): Promise<any> {
     const query = new this.cartModel(object);
     return query.save();
   }
 
-  async addItem(filter: any = {}, item: OrderItemDto): Promise<any> {
-    const cart = await this.cartModel.findOne(filter);
-    if (cart) {
-    	cart.items.push(item);
-    	cart.save();
-    }
-    return cart;
+  async addQty(filter, object: CartItemDto): Promise<any> {
+    const cartObj: any = await this.cartModel.findOne(filter, 'qty price totalPrice').lean();
+    cartObj.qty += object.qty;
+    cartObj.totalPrice = cartObj.qty * cartObj.price;
+    return this.cartModel.findOneAndUpdate(filter, cartObj, {new: true});
   }
 }

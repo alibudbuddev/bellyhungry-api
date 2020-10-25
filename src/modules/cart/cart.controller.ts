@@ -1,9 +1,10 @@
 import { Controller, Get, Delete, Post, Put, Req, Body, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { merge } from 'lodash';
 import { Cart, CartSchema } from './cart.schema';
 import { CartService } from './cart.service';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
-import OrderItemDto from '@modules/order/dto/order-item.dto';
-import CreateOrderDto from '@modules/order/dto/create-order.dto';
+import CartItemDto from './dto/cart-item.dto';
+// import CreateCartDto from '@modules/order/dto/create-order.dto';
 
 @Controller('cart')
 export class CartController {
@@ -18,35 +19,17 @@ export class CartController {
 
 	@Post()
   @UseGuards(AuthenticatedGuard)
-  async create(@Req() req: any, @Body('item') item: OrderItemDto): Promise<any> {
+  async create(@Req() req: any, @Body('item') item: CartItemDto): Promise<any> {
     const customer = req.user._id;
-    const isCartExist = await this.isCartExist(customer);
-    const items = [item];
-    const cartMetaData = {customer, items};
-
-    // TODO: 
-    // -  Check if user has current cart record.
-    // - If YES > Get that cart and update items.
-    // - if No > Create new card record.
+    const filter = {customer: customer, product: item.product};
+    const isCartExist = await this.isCartExist(filter);
+    const cartItem = merge(item, new CartItemDto(item, customer));
 
     if (isCartExist) {
-      return this.cartService.addItem({customer}, item);
+      return this.cartService.addQty(filter, cartItem);
     } else {
-      let cartObject = new CreateOrderDto(cartMetaData);
-      let cart = await this.cartService.create(cartObject.getFields());
-      return cart;
+      return this.cartService.addItem(cartItem);
     }
-
-    // const cartObject = new CreateOrderDto(cartMetaData);
-  	// const orderMetaData = {customer: req.user._id, items: item};
-  	// const order = new CreateOrderDto(orderMetaData);
-   //  return this.cartService.create(order.getFields())
-   //  .then(order => {
-   //    return order;
-   //  })
-   //  .catch(e => {
-   //    throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
-   //  });
   }
 
   @Delete()
@@ -71,8 +54,8 @@ export class CartController {
     return CartSchema.paths;
   }
 
-  async isCartExist(userId): Promise<boolean | undefined> {
-    let cart = await this.cartService.isCartExist({customer: userId});
+  async isCartExist(filter: {customer: string, product: string}): Promise<boolean | undefined> {
+    let cart = await this.cartService.isCartExist(filter);
     return cart;
   }
 }
