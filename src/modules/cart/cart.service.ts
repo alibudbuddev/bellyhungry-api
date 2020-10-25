@@ -14,8 +14,8 @@ export class CartService {
     return this.cartModel.exists(filter);
   }
 
-  async findOne(filter): Promise<any | undefined> {
-    return this.cartModel.findOne(filter);
+  async find(filter): Promise<any | undefined> {
+    return this.cartModel.find(filter);
   }
 
   async addItem(object: CartItemDto): Promise<any> {

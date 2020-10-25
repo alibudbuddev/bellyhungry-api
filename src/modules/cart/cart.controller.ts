@@ -14,7 +14,7 @@ export class CartController {
   @Get()
   @UseGuards(AuthenticatedGuard)
   find(@Req() req: any): any {
-    return this.cartService.findOne({customer: req.user._id});
+    return this.cartService.find({customer: req.user._id});
   }
 
 	@Post()
