@@ -13,7 +13,7 @@ import { SessionSerializer } from './session.serializer';
 		PassportModule,
 		JwtModule.register({
       secret: 'f00dTr@d3@pi',
-      signOptions: { expiresIn: '60s' },
+      // signOptions: { expiresIn: '60s' },
     }),
 
 	],
