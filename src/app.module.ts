@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { PracticeModule } from './practice/practice.module';
 import { AppController } from './app.controller';
 import { MerchantModule } from './modules/merchant/merchant.module';
+import { FeedModule } from './modules/feed/feed.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { MerchantModule } from './modules/merchant/merchant.module';
   	CartModule,
   	AuthModule,
   	PracticeModule,
-  	MerchantModule
+  	MerchantModule,
+  	FeedModule
   ],
   controllers: [AppController]
 })
