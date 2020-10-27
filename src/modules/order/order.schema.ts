@@ -21,7 +21,7 @@ export class Order {
 
   @Prop(raw([{
     product: {type: Types.ObjectId, ref: 'Product', required: true},
-    // merchant: {type: Types.ObjectId, ref: 'User', required: true},
+    merchant: {type: Types.ObjectId, ref: 'User', required: true},
     price: {type: Number, required: true},
     qty: {type: Number, required: true},
     discount: {type: Number, default: 0},
