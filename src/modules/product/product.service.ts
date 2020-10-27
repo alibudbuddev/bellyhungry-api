@@ -6,7 +6,7 @@ import UpdateProductDto from './dto/update-product.dto';
 
 @Injectable()
 export class ProductService {
-  private publicFields: string = 'name price productId qty';
+  private publicFields: string = 'name price productId qty, merchant';
 
 	constructor(@InjectModel(Product.name) private productModel: Model<any>) {}
 
