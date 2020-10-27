@@ -11,11 +11,10 @@ export class OrderController {
 
 	constructor(private orderService: OrderService, private cartService: CartService) {}
   
-  @UseGuards(AuthenticatedGuard)
 	@Post()
   async create(@Req() req: any, @Body() body: any): Promise<any> {
   	const orderMetaData = {
-      customer: req.user._id || null,
+      customer: req?.user?._id || null,
       customerDetails: body.customerDetails,
       items: body.items
     };
