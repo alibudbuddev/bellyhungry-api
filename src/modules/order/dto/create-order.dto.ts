@@ -20,11 +20,10 @@ export default class CreateOrderDto {
     this.items = items;
   }
 
-  getFields(): any {
+  getOrder(): any {
     const order = {
       customer: this.customer,
       customerDetails: this.customerDetails,
-      items: this.items,
       totalPrice: this.totalPrice,
       discount:  this.discount,
       shippingFee:  this.shippingFee
