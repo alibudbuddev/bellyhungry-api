@@ -1,10 +1,11 @@
 import { Controller, Get, Post, Put, Body, Req, HttpException, HttpStatus, UseGuards, Query, Param } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Order, OrderSchema } from './order.schema';
-import { AuthenticatedGuard } from '@guards/authenticated.guard';
+import { ObjectidCheckerGuard } from '@guards/objectid-checker.guard';
 import { CartService } from '@modules/cart/cart.service';
 import CreateOrderDto from './dto/create-order.dto';
 import OrderItemDto from './dto/order-item.dto';
+import { Types } from 'mongoose';
 
 @Controller('orders')
 export class OrderController {
@@ -28,6 +29,12 @@ export class OrderController {
     .catch(e => {
       throw new HttpException(e.message, HttpStatus.NOT_ACCEPTABLE);
     });
+  }
+
+  @Get(':id')
+  @UseGuards(ObjectidCheckerGuard)
+  async getOne(@Param('id') id: string): Promise<any> {
+    return this.orderService.findById(id);
   }
 
 	@Get('schema')
