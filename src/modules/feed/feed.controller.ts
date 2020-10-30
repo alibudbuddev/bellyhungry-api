@@ -6,9 +6,10 @@ export class FeedController {
 
 	constructor(private productService: ProductService) {}
 
+  // TODO: Don't allow user buy his own product.
 	@Get('products')
-  async find(@Query() query: any): Promise<any> {
-    const filter = {};
+  async find(@Req() req: any, @Query() query: any): Promise<any> {
+    let filter = {};
     const options = {
       skip: query?.skip ? query.skip : 0,
       limit: query?.limit ? query.limit : 50
