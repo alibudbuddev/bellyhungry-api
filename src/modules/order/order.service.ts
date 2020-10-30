@@ -42,6 +42,8 @@ export class OrderService {
   }
 
   async items(filter: any = {}): Promise<OrderItem[]> {
-    return this.orderItemModel.find(filter);
+    return this.orderItemModel.find(filter)
+    .populate('order', 'customerDetails totalPrice')
+    .populate('merchant', 'name email');
   }
 }

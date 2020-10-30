@@ -32,13 +32,6 @@ export class OrderController {
     });
   }
 
-  @Get('merchant')
-  @UseGuards(JwtAuthGuard)
-  async getMerchantOrders(@Request() req): Promise<any> {
-    const filter = {'merchant': req.user.user._id};
-    return this.orderService.items(filter);
-  }
-
   @Get(':id')
   @UseGuards(ObjectidCheckerGuard)
   async getOne(@Param('id') id: string): Promise<any> {
