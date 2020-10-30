@@ -36,7 +36,7 @@ export class OrderService {
       x['order'] = order._id;
       return x;
     });
-    console.log(items);
+    
     await this.orderItemModel.insertMany(items);
     return order;
   }
