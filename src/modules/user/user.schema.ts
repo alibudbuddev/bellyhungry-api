@@ -14,12 +14,15 @@ export class User {
   @Prop({unique: true, required: true})
   userId: number;
 
-  @Prop(raw({
-    first: {type: String, required: true},
-    middle: {type: String},
-    last: {type: String},
-  }))
-  name: Record<any, any>;
+   @Prop({required: true})
+  name: string;
+
+  // @Prop(raw({
+  //   first: {type: String, required: true},
+  //   middle: {type: String},
+  //   last: {type: String},
+  // }))
+  // name: Record<any, any>;
 
   @Prop()
   address: string;

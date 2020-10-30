@@ -4,7 +4,7 @@ import { Document, Types } from 'mongoose';
 @Schema()
 export class Product {
   @Prop({unique: true, required: true})
-  productId: number;
+  productId: string;
 
   @Prop({required: true})
   name: string;
