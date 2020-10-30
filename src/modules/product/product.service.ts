@@ -10,8 +10,8 @@ export class ProductService {
 
 	constructor(@InjectModel(Product.name) private productModel: Model<any>) {}
 
-	async find(filter: any = {}): Promise<Product[]> {
-    return this.productModel.find(filter, this.publicFields)
+	async find(filter: object = {}, options: object = {}): Promise<Product[]> {
+    return this.productModel.find(filter, this.publicFields, options)
     .populate('merchant', 'name')
     .exec();
   }

@@ -8,7 +8,13 @@ export class FeedController {
 
 	@Get('products')
   async find(@Query() query: any): Promise<any> {
-    return this.productService.find();
+    const filter = {};
+    const options = {
+      skip: query?.skip ? query.skip : 0,
+      limit: query?.limit ? query.limit : 50
+    };
+    
+    return this.productService.find(filter, options);
   }
 
   @Get('products/:id')
