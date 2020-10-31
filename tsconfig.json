@@ -12,12 +12,13 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@modules/*": ["src/modules/*"],
-      "@schema/*": ["src/schema/*"],
+      "@aggregates/*": ["src/aggregates/*"],
       "@auth/*": ["src/auth/*"],
+      "@core/*": ["src/core/*"],
       "@guards/*": ["src/guards/*"],
+      "@modules/*": ["src/modules/*"],
       "@pipes/*": ["src/pipes/*"],
-      "@core/*": ["src/core/*"]
+      "@schema/*": ["src/schema/*"]
     }
   }
 }
