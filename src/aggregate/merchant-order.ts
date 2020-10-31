@@ -1,0 +1,45 @@
+export default merchantOrder = (merchantId: string) => {
+	return [
+    {
+      '$match': {
+        'merchant': merchantId
+      }
+    },
+    {
+      '$group': {
+        '_id': '$merchant', 
+        'totalPrice': {
+          '$sum': '$totalPrice'
+        }, 
+        'order': {
+          '$first': '$order'
+        }, 
+        'totalQty': {
+          '$sum': '$qty'
+        }
+      }
+    },
+    {
+      '$lookup': {
+        'from': 'orders', 
+        'localField': 'order', 
+        'foreignField': '_id', 
+        'as': 'orderDetails'
+      }
+    },
+    {
+      '$unwind': {
+        'path': '$orderDetails'
+      }
+    },
+    {
+      '$project': {
+        'totalPrice': 1, 
+        'totalQty': 1, 
+        'orderDetails': {
+          'customerDetails': 1
+        }
+      }
+    }
+	]
+}
