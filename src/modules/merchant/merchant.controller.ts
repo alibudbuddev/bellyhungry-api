@@ -1,15 +1,20 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Param, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { MerchantService } from './merchant.service';
 
 @Controller('merchant')
+@UseGuards(JwtAuthGuard)
 export class MerchantController {
 
 	constructor(private merchantService: MerchantService) {}
 
   @Get('orders')
-  @UseGuards(JwtAuthGuard)
   async getMerchantOrders(@Req() req): Promise<any> {
     return this.merchantService.getOrders(req.user.user._id);
+  }
+
+  @Get('orders/:id')
+  async getMerchantOrderDtetails(@Req() req, @Param('id') orderId: any): Promise<any> {
+    return this.merchantService.getOrder(req.user.user._id, orderId);
   }
 }

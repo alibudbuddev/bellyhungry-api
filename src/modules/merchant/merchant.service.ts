@@ -17,4 +17,10 @@ export class MerchantService {
   	const pipeline = MerchantOrders(merchantId);
     return this.orderItemModel.aggregate(pipeline);
   }
+
+  async getOrder(merchantId: string, orderId: string): Promise<any[]> {
+  	const filter = {merchant: merchantId, order: orderId};
+  	console.log(filter);
+    return this.orderItemModel.find(filter);
+  }
 }
