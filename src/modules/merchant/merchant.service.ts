@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Order } from '@modules/order/order.schema';
 import { OrderItem } from '@schema/order-items.schema';
 import { MerchantOrders } from '@aggregates/index';
@@ -19,7 +19,7 @@ export class MerchantService {
   }
 
   async getOrder(merchantId: string, orderId: string): Promise<any[]> {
-  	const filter = {merchant: merchantId, order: orderId};
+  	const filter = {order: Types.ObjectId(orderId), merchant: Types.ObjectId(merchantId)};
     return this.orderItemModel.find(filter);
   }
 }
