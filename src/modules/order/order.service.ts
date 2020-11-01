@@ -32,10 +32,10 @@ export class OrderService {
 	async create(object: CreateOrderDto, items: OrderItemDto[]): Promise<any> {
     const order = new this.orderModel(object);
     await order.save();
-    items = items.map(x => {
+    items = items.map((x: any) => {
       x['order'] = order._id;
-      x['merchant'] = Types.ObjectId(order.merchant);
-      x['product'] = Types.ObjectId(order.product);
+      x['merchant'] = Types.ObjectId(x.merchant);
+      x['product'] = Types.ObjectId(x.product);
       return x;
     });
     

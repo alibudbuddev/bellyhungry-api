@@ -6,7 +6,6 @@ import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { CartService } from '@modules/cart/cart.service';
 import CreateOrderDto from './dto/create-order.dto';
 import OrderItemDto from './dto/order-item.dto';
-import { Types } from 'mongoose';
 
 @Controller('orders')
 export class OrderController {

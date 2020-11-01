@@ -14,7 +14,7 @@ export class MerchantService {
   ) {}
 
   async getOrders(merchantId: string): Promise<any[]> {
-  	const pipeline = MerchantOrders(merchantId);
+  	const pipeline = MerchantOrders(Types.ObjectId(merchantId));
     return this.orderItemModel.aggregate(pipeline);
   }
 

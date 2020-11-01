@@ -1,4 +1,4 @@
-export const MerchantOrders = (merchantId: string) => {
+export const MerchantOrders = (merchantId: any) => {
 	return [
     { $match: { merchant: merchantId } },
     { $group: {
