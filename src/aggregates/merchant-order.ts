@@ -2,10 +2,7 @@ export const MerchantOrders = (merchantId: string) => {
 	return [
     { $match: { merchant: merchantId } },
     { $group: {
-        _id: {
-          merchant: '$merchant',
-          ordr: '$order'
-        }, 
+        _id: '$order', 
         totalPrice: {
           $sum: '$totalPrice'
         }, 
