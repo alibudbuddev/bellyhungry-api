@@ -15,6 +15,8 @@ export class MerchantController {
 
   @Get('orders/:id')
   async getMerchantOrderDtetails(@Req() req, @Param('id') orderId: any): Promise<any> {
-    return this.merchantService.getOrder(req.user.user._id, orderId);
+    const items = await this.merchantService.getOrderItems(req.user.user._id, orderId);
+    const details = await this.merchantService.getOrderDetails(orderId);
+    return {items, details};
   }
 }

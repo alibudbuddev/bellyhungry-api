@@ -13,13 +13,18 @@ export class MerchantService {
     @InjectModel(OrderItem.name) private orderItemModel: Model<any>
   ) {}
 
+  async getOrderDetails(orderId: string): Promise<any[]> {
+    return this.orderModel.findOne({_id: Types.ObjectId(orderId)}, 'totalPrice discount customerDetails');
+  }
+
   async getOrders(merchantId: string): Promise<any[]> {
   	const pipeline = MerchantOrders(Types.ObjectId(merchantId));
     return this.orderItemModel.aggregate(pipeline);
   }
 
-  async getOrder(merchantId: string, orderId: string): Promise<any[]> {
+  async getOrderItems(merchantId: string, orderId: string): Promise<any[]> {
   	const filter = {order: Types.ObjectId(orderId), merchant: Types.ObjectId(merchantId)};
-    return this.orderItemModel.find(filter);
+    return this.orderItemModel.find(filter, 'discount price product qty shippingFee totalPrice')
+    .populate('product', 'name');
   }
 }
