@@ -1,1 +1,2 @@
-export * from './merchant-order';
+export * from './merchant-order-list';
+export * from './merchant-order-details';
