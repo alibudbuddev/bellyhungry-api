@@ -48,10 +48,10 @@ export const MerchantOrderDetails = (orderId: any, merchant: any) => {
     },
     {
     '$addFields': {
-      'totalPrice': {
-        '$sum': '$items.totalPrice'
+        'totalPrice': {
+          '$sum': '$items.totalPrice'
+        }
       }
     }
-  }
   ];
 }
