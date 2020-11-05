@@ -10,6 +10,11 @@ export class AppController {
 
 	constructor(private authService: AuthService) {}
 
+  @Get('')
+  async home() {
+    return 'So High';
+  }
+
   @UseGuards(LoginGuard)
   @Post('auth/login')
   async login(@Request() req) {
