@@ -31,23 +31,6 @@ export class AppController {
     return req.user;
   }
 
-
-  // This is to check the user using callback
-  @Get('auth/facebook/login')
-  @UseGuards(AuthGuard("facebook"))
-  async facebookLogin(): Promise<any> {
-    return HttpStatus.OK;
-  }
-
-  @Get('auth/facebook/redirect')
-  @UseGuards(AuthGuard("facebook"))
-  async facebookLoginRedirect(@Req() req: any): Promise<any> {
-    return {
-      statusCode: HttpStatus.OK,
-      data: req.user,
-    };
-  }
-
   @UseGuards(LoginGuard)
   @Post('auth/login')
   async login(@Request() req) {
