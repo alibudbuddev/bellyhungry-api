@@ -17,13 +17,20 @@ export class AppController {
     return 'So High';
   }
 
-  // This is to login/register user from client with access token.
+  // Login/Register user from client with facebook access token.
   @Get('auth/facebook/get')
   @UseFilters(new AllExceptionsFilter())
   @UseGuards(AuthGuard('facebook-token'))
   async facebookValidate(@Req() req: any): Promise<any> {
     return req.user;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('auth/jwt/me')
+  jwt(@Request() req) {
+    return req.user;
+  }
+
 
   // This is to check the user using callback
   @Get('auth/facebook/login')
@@ -52,10 +59,5 @@ export class AppController {
   getProfile(@Request() req) {
     return {user: req.user, merchantId: Date.now()};
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('auth/jwt/me')
-  jwt(@Request() req) {
-    return req.user;
-  }
+  
 }
