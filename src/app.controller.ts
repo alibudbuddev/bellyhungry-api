@@ -1,10 +1,11 @@
-import { Controller, Request, Post, UseGuards, Get, Req, HttpStatus } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Req, HttpStatus, UseFilters } from '@nestjs/common';
 import { LoginGuard } from '@guards/login.guard';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from '@auth/auth.service';
-
+import { AllExceptionsFilter } from './exceptions/all.exception';
+import FB, {FacebookApiException} from 'fb';
 
 @Controller()
 export class AppController {
@@ -16,7 +17,16 @@ export class AppController {
     return 'So High';
   }
 
-  @Get('auth/login/facebook')
+  // This is to login/register user from client with access token.
+  @Get('auth/facebook/get')
+  @UseFilters(new AllExceptionsFilter())
+  @UseGuards(AuthGuard('facebook-token'))
+  async facebookValidate(@Req() req: any): Promise<any> {
+    return req.user;
+  }
+
+  // This is to check the user using callback
+  @Get('auth/facebook/login')
   @UseGuards(AuthGuard("facebook"))
   async facebookLogin(): Promise<any> {
     return HttpStatus.OK;
