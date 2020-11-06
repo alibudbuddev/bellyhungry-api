@@ -5,7 +5,6 @@ import { ProductModule } from '@modules/product/product.module';
 import { OrderModule } from '@modules/order/order.module';
 import { CartModule } from '@modules/cart/cart.module';
 import { AuthModule } from './auth/auth.module';
-import { PracticeModule } from './practice/practice.module';
 import { AppController } from './app.controller';
 import { MerchantModule } from './modules/merchant/merchant.module';
 import { FeedModule } from './modules/feed/feed.module';
@@ -18,7 +17,6 @@ import { FeedModule } from './modules/feed/feed.module';
   	OrderModule,
   	CartModule,
   	AuthModule,
-  	PracticeModule,
   	MerchantModule,
   	FeedModule
   ],
