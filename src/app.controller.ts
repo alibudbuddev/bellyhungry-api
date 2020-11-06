@@ -32,4 +32,11 @@ export class AppController {
   jwt(@Request() req) {
     return req.user;
   }
+
+  @Get('api/environment')
+  getEnv() {
+    return {
+      API_URL: process.env.API_URL
+    }
+  }
 }
