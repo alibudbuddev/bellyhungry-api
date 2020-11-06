@@ -15,7 +15,7 @@ export class FacebookTokenValidatorStrategy {
           clientSecret: process.env.FB_APP_SECRET,
         },
         async (accessToken: string, refreshToken: string, profile: any, done: any) => {
-          const user = {};
+          const user = {test: 123};
           console.log(profile);
           return done(null, user);
         },

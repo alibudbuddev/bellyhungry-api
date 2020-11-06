@@ -14,8 +14,21 @@ export class User {
   @Prop({unique: true, required: true})
   userId: number;
 
-   @Prop({required: true})
+  @Prop({required: true})
   name: string;
+
+  @Prop(raw([{
+    authStrategy: {
+      required: true,
+      type: String,
+      enum: [
+        'local',
+        'facebook'
+      ],
+      trim: true
+    }
+  }]))
+  auths: Record<any, any>;
 
   // @Prop(raw({
   //   first: {type: String, required: true},
