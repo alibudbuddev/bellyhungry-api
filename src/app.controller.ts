@@ -1,7 +1,8 @@
-import { Controller, Request, Post, UseGuards, Get } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Req, HttpStatus } from '@nestjs/common';
 import { LoginGuard } from '@guards/login.guard';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
+import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from '@auth/auth.service';
 
 
@@ -13,6 +14,21 @@ export class AppController {
   @Get('')
   async home() {
     return 'So High';
+  }
+
+  @Get('auth/login/facebook')
+  @UseGuards(AuthGuard("facebook"))
+  async facebookLogin(): Promise<any> {
+    return HttpStatus.OK;
+  }
+
+  @Get('auth/facebook/redirect')
+  @UseGuards(AuthGuard("facebook"))
+  async facebookLoginRedirect(@Req() req: any): Promise<any> {
+    return {
+      statusCode: HttpStatus.OK,
+      data: req.user,
+    };
   }
 
   @UseGuards(LoginGuard)
@@ -31,12 +47,5 @@ export class AppController {
   @Get('auth/jwt/me')
   jwt(@Request() req) {
     return req.user;
-  }
-
-  @Get('api/environment')
-  getEnv() {
-    return {
-      API_URL: process.env.API_URL
-    }
   }
 }

@@ -5,6 +5,7 @@ import { UserModule } from '@modules/user/user.module';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
+import { FacebookStrategy } from './facebook.strategy';
 import { SessionSerializer } from './session.serializer';
 
 @Module({
@@ -17,7 +18,13 @@ import { SessionSerializer } from './session.serializer';
     }),
 
 	],
-  providers: [AuthService, LocalStrategy, SessionSerializer, JwtStrategy],
+  providers: [
+  	AuthService,
+  	LocalStrategy,
+  	SessionSerializer,
+  	JwtStrategy,
+  	FacebookStrategy
+  ],
   exports: [AuthService]
 })
 export class AuthModule {}
