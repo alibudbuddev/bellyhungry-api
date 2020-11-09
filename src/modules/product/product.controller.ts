@@ -11,12 +11,12 @@ export class ProductController {
 
 	@Get()
   find(@Req() req: any, @Query() query: any): any {
-    return this.productService.find({merchant: req.user._id});
+    return this.productService.find({merchant: req.user.id});
   }
   
 	@Post()
   async create(@Body() body: any, @Req() req: any): Promise<any> {
-  	const merchant = {merchant: req.user._id};
+  	const merchant = {merchant: req.user.id};
   	const product = Object.assign(body, merchant);
     return this.productService.create(product)
     .then(product => {
@@ -34,7 +34,7 @@ export class ProductController {
 
   @Put(':id')
   async findOneAndUpdate(@Req() req: any, @Param('id') id: string, @Body() body: any): Promise<Product> {
-    const merchant = {merchant: req.user._id, _id: id};
+    const merchant = {merchant: req.user.id, _id: id};
     return this.productService.findOneAndUpdate(merchant, body);
   }
 

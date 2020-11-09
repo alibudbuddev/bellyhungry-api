@@ -13,14 +13,14 @@ export class CartController {
   @Get()
   @UseGuards(AuthenticatedGuard)
   find(@Req() req: any): any {
-    return this.cartService.find({customer: req.user._id});
+    return this.cartService.find({customer: req.user.id});
   }
 
   // TODO: Add validation pupe for item object.
 	@Post()
   @UseGuards(AuthenticatedGuard)
   async create(@Req() req: any, @Body('item') item: CartItemDto): Promise<any> {
-    const customer = req.user._id;
+    const customer = req.user.id;
     const filter = {customer: customer, product: item.product};
     const isCartExist = await this.isCartExist(filter);
     const cartItem = merge(item, new CartItemDto(item, customer));
@@ -35,7 +35,7 @@ export class CartController {
   @Delete()
   @UseGuards(AuthenticatedGuard)
   async delete(@Req() req: any, @Body('product') product: string): Promise<any> {
-    const customer = req.user._id;
+    const customer = req.user.id;
     const filter = {customer: customer, product: product};
     const isCartExist = await this.isCartExist(filter);
 
@@ -50,7 +50,7 @@ export class CartController {
   @Put()
   @UseGuards(AuthenticatedGuard)
   async update(@Req() req: any, @Body() item: CartItemDto): Promise<any> {
-    const customer = req.user._id;
+    const customer = req.user.id;
     const filter = {customer: customer, product: item.product};
     const isCartExist = await this.isCartExist(filter);
 

@@ -10,12 +10,12 @@ export class MerchantController {
 
   @Get('orders')
   async getMerchantOrders(@Req() req): Promise<any> {
-    return this.merchantService.getOrders(req.user.user._id);
+    return this.merchantService.getOrders(req.user.id);
   }
 
   @Get('orders/:id')
   async getMerchantOrderDtetails(@Req() req, @Param('id') orderId: any): Promise<any> {
-    const order = await this.merchantService.getOrderDetails(orderId, req.user.user._id);
+    const order = await this.merchantService.getOrderDetails(orderId, req.user.id);
     return order[0];
   }
 }
