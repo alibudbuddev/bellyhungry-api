@@ -22,7 +22,7 @@ export class Product {
   qty: number;
 
   @Prop()
-  catgory: number;
+  catgory: string[];
 
   @Prop({default: false})
   isAvailable: boolean;
