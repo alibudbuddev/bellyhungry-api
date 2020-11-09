@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Put, Body, Req, HttpException, HttpStatus, UseGuards, Query, Param } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product, ProductSchema } from './product.schema';
-import { AuthenticatedGuard } from '@guards/authenticated.guard';
+import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 
-@UseGuards(AuthenticatedGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('products')
 export class ProductController {
 
