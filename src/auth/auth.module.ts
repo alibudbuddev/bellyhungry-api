@@ -5,7 +5,6 @@ import { UserModule } from '@modules/user/user.module';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
-import { FacebookTokenValidatorStrategy } from './facebook-token-validator.strategy';
 import { SessionSerializer } from './session.serializer';
 
 @Module({
@@ -22,8 +21,7 @@ import { SessionSerializer } from './session.serializer';
   	AuthService,
   	LocalStrategy,
   	SessionSerializer,
-  	JwtStrategy,
-  	FacebookTokenValidatorStrategy
+  	JwtStrategy
   ],
   exports: [AuthService]
 })
