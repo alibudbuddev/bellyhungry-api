@@ -1,4 +1,5 @@
-import { Controller, Request, Post, UseGuards, Get, Req, HttpStatus, UseFilters } from '@nestjs/common';
+import { Controller, Request, Res, Post, UseGuards, Get, Req, HttpStatus, UseFilters } from '@nestjs/common';
+import * as path from 'path';
 import { LoginGuard } from '@guards/login.guard';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
@@ -12,9 +13,9 @@ export class AppController {
 
 	constructor(private authService: AuthService) {}
 
-  @Get('')
-  async home() {
-    return 'So High';
+  @Get()
+  root(@Res() res) {
+    res.sendFile(path.join(__dirname, './../../angular/dist/index.html'));
   }
 
   // Login/Register user from client with facebook access token.
