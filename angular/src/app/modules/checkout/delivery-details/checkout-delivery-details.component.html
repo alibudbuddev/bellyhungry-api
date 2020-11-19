@@ -1,0 +1,59 @@
+<div class="py-3">
+  <h2>Checkout</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-4 order-md-2 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <dl class="d-flex justify-content-between">
+          <dt>Total price:</dt>
+          <dd class="text-right">{{ cart.totalPrice | currency:'PHP' }}</dd>
+        </dl>
+        <dl class="d-flex justify-content-between">
+          <dt>Discount:</dt>
+          <dd class="text-right">{{ 0 | currency:'PHP' }}</dd>
+        </dl>
+        <dl class="d-flex justify-content-between">
+          <dt>Total:</dt>
+          <dd class="text-right h5"><strong>{{ cart.totalPrice | currency:'PHP' }}</strong></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 order-md-1">
+    <ng-container *ngIf="cart.totalPrice < 1">
+      <p class="text-center">You don't have any items in the cart yet.</p>
+    </ng-container>
+
+    <ng-container *ngIf="cart.totalPrice > 0">
+      <h4 class="mb-3 text-muted">Delivery Details</h4>
+      <form class="needs-validation" [formGroup]="form" (submit)="prepareFields()">
+        <div class="mb-3">
+  	      <label for="name">Name</label>
+  	      <input type="text" class="form-control" id="name" formControlName="name">
+  	      <div class="invalid-feedback">
+  	        Valid first name is required.
+  	      </div>
+  	    </div>
+
+        <div class="mb-3">
+          <label for="shippingAddress">Delivery Address</label>
+          <input type="text" class="form-control" id="shippingAddress" formControlName="shippingAddress">
+          <div *ngIf="form.get('shippingAddress').invalid && form.get('shippingAddress').dirty" class="invalid-feedback">
+            Please enter your Delivery Address.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="contactNo">Contact No.</label>
+          <input type="text" class="form-control" id="contactNo" formControlName="contactNo">
+          <div *ngIf="form.get('contactNo').invalid && form.get('contactNo').dirty" class="invalid-feedback">
+            Please enter your Contact Nnumber.
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Save Delivery Details</button>
+      </form>
+    </ng-container>
+  </div>
+</div>

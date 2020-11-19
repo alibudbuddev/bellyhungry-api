@@ -28,6 +28,7 @@
     "@nestjs/mongoose": "7.0.2",
     "@nestjs/passport": "7.1.0",
     "@nestjs/platform-express": "7.0.0",
+    "@nestjs/serve-static": "^2.1.4",
     "argon2": "0.27.0",
     "express-session": "1.17.1",
     "lodash": "4.17.20",

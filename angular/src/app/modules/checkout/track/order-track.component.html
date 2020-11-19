@@ -1,0 +1,8 @@
+<div class="py-5 text-center">
+  <h2>
+  	<ng-container *ngIf="showSuccess">Your order is now placed!</ng-container>
+  	<ng-container *ngIf="!showSuccess">Order Details</ng-container>
+  </h2>
+</div>
+
+{{ order | json }}

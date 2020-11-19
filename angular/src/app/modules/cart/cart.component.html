@@ -1,0 +1,56 @@
+<div class="container main-page">
+  <div class="py-3">
+    <h2>Your shopping cart</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <dl class="d-flex justify-content-between">
+            <dt>Total price:</dt>
+            <dd class="text-right">{{ cart.totalPrice | currency:'PHP' }}</dd>
+          </dl>
+          <dl class="d-flex justify-content-between">
+            <dt>Discount:</dt>
+            <dd class="text-right">{{ 0 | currency:'PHP' }}</dd>
+          </dl>
+          <dl class="d-flex justify-content-between">
+            <dt>Total:</dt>
+            <dd class="text-right h5"><strong>{{ cart.totalPrice | currency:'PHP' }}</strong></dd>
+          </dl>
+          <a *ngIf="cart.totalPrice > 0" routerLink="/order/checkout" class="btn btn-primary btn-block">Checkout</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 order-md-1">
+      <ng-container *ngIf="items.length > 0">
+        <ul class="list-group mb-3">
+          <ng-container *ngFor="let item of items; index as i; trackBy: trackByProduct">
+            <li class="list-group-item">
+              <div class="title">
+                <p class="m-0">{{ item.productDetails.name }}</p>
+                <small class="text-success">Item price: {{ item.price | currency:'PHP' }}</small>
+              </div>
+              <div class="qty-form">
+                <input numberInputMask class="form-control" [(ngModel)]="item.qty" type="text" (blur)="onQtyChange(item, i)">
+              </div>
+              <div class="price d-flex justify-content-center align-items-center font-weight-bold">
+                {{ item.totalPrice | currency:'PHP' }}
+              </div>
+              <div class="button d-flex justify-content-center align-items-center">
+                <button class="btn btn-danger btn-sm" (click)="onRemoveItemClick(i)">remove</button>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+        <div class="d-flex justify-content-end">
+          <a routerLink="/products" class="btn btn-primary">Add more product</a>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="items.length < 1">
+        <p class="text-center">You don't have any items in the cart yet.</p>
+      </ng-container>
+    </div>
+  </div>
+</div>

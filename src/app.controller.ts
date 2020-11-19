@@ -13,11 +13,6 @@ export class AppController {
 
 	constructor(private authService: AuthService) {}
 
-  @Get('')
-  root(@Res() res) {
-    res.sendFile(path.join(__dirname, './../angular/dist/index.html'));
-  }
-
   // Login/Register user from client with facebook access token.
   @Get('auth/facebook/get')
   @UseFilters(new AllExceptionsFilter())

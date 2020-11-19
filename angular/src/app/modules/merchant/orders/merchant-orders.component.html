@@ -1,0 +1,19 @@
+<div class="py-3">
+  <h2>Orders</h2>
+</div>
+
+<ul class="list-group mb-3">
+  <ng-container *ngFor="let item of orders; trackBy: trackById">
+    <li class="list-group-item">
+      <div class="d-flex justify-content-between lh-condensed align-items-center mr-3">
+        <div class="d-flex flex-column">
+          <h6 class="my-0">Order ID: {{ item.order }}</h6>
+          <small class="text-muted">Customer name: {{ item.orderDetails.customerDetails.name }}</small>
+          <small class="text-muted">Contact No.{{ item.orderDetails.customerDetails.contactNo }}</small>
+        </div>
+        <span class="text-muted">{{ item.totalPrice | currency:'PHP' }}</span>
+      </div>
+      <a [routerLink]="['/merchant/orders', item.order]" class="btn btn-primary d-flex align-items-center justify-content-center">View Order</a>
+    </li>
+  </ng-container>
+</ul>
