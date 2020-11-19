@@ -5,7 +5,6 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  app.setGlobalPrefix('api');
   app.use(
     session({
       secret: 'foodtradeapi',

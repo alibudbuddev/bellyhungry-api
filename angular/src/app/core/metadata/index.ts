@@ -1,1 +1,0 @@
-export { categoryList } from './category';

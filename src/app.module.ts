@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { MongooseModule } from '@nestjs/mongoose';
-import { join } from 'path';
 import { UserModule } from '@modules/user/user.module';
 import { ProductModule } from '@modules/product/product.module';
 import { OrderModule } from '@modules/order/order.module';
@@ -14,10 +12,6 @@ import { FeedModule } from './modules/feed/feed.module';
 @Module({
   imports: [
   	MongooseModule.forRoot(process.env.DB_CONNECTION, { useFindAndModify: false }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'angular/dist'),
-      exclude: ['/api*'],
-    }),
   	UserModule,
   	ProductModule,
   	OrderModule,
