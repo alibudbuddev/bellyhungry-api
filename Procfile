@@ -1,1 +1,1 @@
-web: npm run start:prod
+web: npm run start --prefix angular && npm run start:prod
