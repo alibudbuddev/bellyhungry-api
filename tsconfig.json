@@ -15,6 +15,7 @@
       "@aggregates/*": ["src/aggregates/*"],
       "@auth/*": ["src/auth/*"],
       "@core/*": ["src/core/*"],
+      "@exceptions/*": ["src/exceptions/*"],
       "@guards/*": ["src/guards/*"],
       "@modules/*": ["src/modules/*"],
       "@pipes/*": ["src/pipes/*"],

@@ -4,16 +4,16 @@ import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from '@auth/auth.service';
-import { AllExceptionsFilter } from './exceptions/all.exception';
+import { AllExceptionsFilter } from '@exceptions/all.exception';
 // import FB, {FacebookApiException} from 'fb';
 
 @Controller('auth')
-export class Controller {
+export class AuthController {
 
 	constructor(private authService: AuthService) {}
 
   // Login/Register user from client with facebook access token.
-  @Get('auth/facebook/get')
+  @Get('facebook/get')
   @UseFilters(new AllExceptionsFilter())
   @UseGuards(AuthGuard('facebook-token'))
   async facebookValidate(@Req() req: any): Promise<any> {
@@ -21,19 +21,19 @@ export class Controller {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('auth/jwt/me')
+  @Get('jwt/me')
   jwt(@Req() req) {
     return req.user;
   }
 
   @UseGuards(LoginGuard)
-  @Post('auth/login')
+  @Post('login')
   async login(@Req() req) {
     return this.authService.login(req.user);
   }
 
   @UseGuards(AuthenticatedGuard)
-  @Get('auth/me')
+  @Get('me')
   getProfile(@Req() req) {
     return {user: req.user, merchantId: Date.now()};
   }
