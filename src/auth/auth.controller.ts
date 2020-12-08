@@ -26,8 +26,8 @@ export class AuthController {
     return req.user;
   }
 
-  @UseGuards(LoginGuard)
   @Post('login')
+  @UseGuards(LoginGuard)
   async login(@Req() req) {
     return this.authService.login(req.user);
   }
